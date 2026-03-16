@@ -1,3 +1,9 @@
+export type ProductsParams = {
+  featured?: boolean;
+  category?: string;
+  limit?: number;
+};
+
 export type Store = {
   storeName: string;
   currency: string;

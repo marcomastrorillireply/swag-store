@@ -1,8 +1,21 @@
-import { Product, ProductStock } from "@/types";
+import { Product, ProductsParams, ProductStock } from "@/types";
 import { fetchVercelApi } from "./fetchVercelApi";
 
-export const fetchProducts: () => Promise<Product[]> = async () => {
-  const response = await fetchVercelApi("/products");
+export const fetchProducts: (
+  params?: ProductsParams,
+) => Promise<Product[]> = async (params) => {
+  const query = new URLSearchParams();
+  if (params?.featured !== undefined)
+    query.append("featured", String(params.featured));
+  if (params?.category) query.append("category", params.category);
+  if (params?.limit !== undefined) query.append("limit", String(params.limit));
+
+  const qs = query.toString();
+  const response = await fetchVercelApi(qs ? `/products?${qs}` : "/products", {
+    next: {
+      revalidate: 600,
+    },
+  });
   const { data } = await response.json();
   return data;
 };
@@ -10,7 +23,11 @@ export const fetchProducts: () => Promise<Product[]> = async () => {
 export const fetchProductById: (id: string) => Promise<Product> = async (
   id,
 ) => {
-  const response = await fetchVercelApi(`/products/${id}`);
+  const response = await fetchVercelApi(`/products/${id}`, {
+    next: {
+      revalidate: 600,
+    },
+  });
   const { data } = await response.json();
   return data;
 };
