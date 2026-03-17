@@ -1,10 +1,16 @@
-import { Carousel, CarouselContent, CarouselItem, CarouselNext, CarouselPrevious } from "../ui/carousel";
-import ProductCard from "./product-card";
-import type { Product } from "@/types";
+import {
+  Carousel,
+  CarouselContent,
+  CarouselItem,
+  CarouselNext,
+  CarouselPrevious,
+} from '../ui/carousel'
+import ProductCard from './product-card'
+import type { Product } from '@/types'
 
 type Props = {
-  products: Product[];
-};
+  products: Product[]
+}
 
 export default function ProductCarousel({ products }: Props) {
   return (
@@ -19,6 +25,5 @@ export default function ProductCarousel({ products }: Props) {
       <CarouselPrevious />
       <CarouselNext />
     </Carousel>
-
-  );
+  )
 }

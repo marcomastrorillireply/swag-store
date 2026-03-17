@@ -1,13 +1,13 @@
-"use client";
+'use client'
 
-import Link from "next/link";
-import { useState } from "react";
-import { MenuIcon } from "lucide-react";
-import { Sheet, SheetContent, SheetTrigger } from "../ui/sheet";
-import { Category } from "@/types";
+import Link from 'next/link'
+import { useState } from 'react'
+import { MenuIcon } from 'lucide-react'
+import { Sheet, SheetContent, SheetTrigger } from '../ui/sheet'
+import { Category } from '@/types'
 
 export default function MobileMenu({ categories }: { categories: Category[] }) {
-  const [open, setOpen] = useState(false);
+  const [open, setOpen] = useState(false)
 
   return (
     <Sheet open={open} onOpenChange={setOpen}>
@@ -16,10 +16,7 @@ export default function MobileMenu({ categories }: { categories: Category[] }) {
           <MenuIcon size={22} />
         </button>
       </SheetTrigger>
-      <SheetContent
-        side="right"
-        className="bg-black border-white/10 text-white"
-      >
+      <SheetContent side="right" className="bg-black border-white/10 text-white">
         <nav className="mt-8 flex flex-col">
           <Link
             href="/products"
@@ -41,5 +38,5 @@ export default function MobileMenu({ categories }: { categories: Category[] }) {
         </nav>
       </SheetContent>
     </Sheet>
-  );
+  )
 }

@@ -1,5 +1,5 @@
-import Image from "next/image";
-import Link from "next/link";
+import Image from 'next/image'
+import Link from 'next/link'
 import {
   NavigationMenu,
   NavigationMenuContent,
@@ -7,27 +7,18 @@ import {
   NavigationMenuLink,
   NavigationMenuList,
   NavigationMenuTrigger,
-} from "../ui/navigation-menu";
-import MobileMenu from "./mobile-menu";
-import { fetchCategories } from "@/lib/categories";
+} from '../ui/navigation-menu'
+import MobileMenu from './mobile-menu'
+import { fetchCategories } from '@/lib/categories'
 
 export default async function Header() {
-  const categories = await fetchCategories();
+  const categories = await fetchCategories()
 
   return (
     <header className="w-full border-b border-gray-200 bg-white">
       <div className="container mx-auto flex h-14 items-center gap-6 px-4">
-        <Link
-          href="/"
-          className="flex items-center gap-2 font-semibold text-gray-900 text-lg"
-        >
-          <Image
-            src="/vercel.svg"
-            className="invert"
-            alt="Vercel"
-            width={20}
-            height={20}
-          />
+        <Link href="/" className="flex items-center gap-2 font-semibold text-gray-900 text-lg">
+          <Image src="/vercel.svg" className="invert" alt="Vercel" width={20} height={20} />
           <span className="tracking-tight">Swag Store</span>
         </Link>
 
@@ -72,5 +63,5 @@ export default async function Header() {
         </div>
       </div>
     </header>
-  );
+  )
 }

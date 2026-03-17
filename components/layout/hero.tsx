@@ -1,4 +1,4 @@
-import Link from "next/link";
+import Link from 'next/link'
 
 export default function Hero() {
   return (
@@ -10,8 +10,8 @@ export default function Hero() {
           you ship with.
         </h1>
         <p className="mt-4 text-muted-foreground text-base max-w-md">
-          Premium swag for developers who build with Vercel. From tees to tech
-          gear, represent the tools you love.
+          Premium swag for developers who build with Vercel. From tees to tech gear, represent the
+          tools you love.
         </p>
         <Link
           href="/products"
@@ -21,5 +21,5 @@ export default function Hero() {
         </Link>
       </div>
     </section>
-  );
+  )
 }
