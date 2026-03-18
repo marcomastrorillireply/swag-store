@@ -5,6 +5,7 @@ import Header from '@/components/layout/header'
 import HeaderScrollWrapper from '@/components/layout/header-scroll-wrapper'
 import Footer from '@/components/layout/footer'
 import { fetchStore } from '@/lib/store'
+import { SpeedInsights } from '@vercel/speed-insights/next'
 
 const geistSans = Geist({
   variable: '--font-geist-sans',
@@ -37,7 +38,10 @@ export default function RootLayout({
         <HeaderScrollWrapper>
           <Header />
         </HeaderScrollWrapper>
-        <div className="flex-grow">{children}</div>
+        <div className="flex-grow">
+          {children}
+          <SpeedInsights />
+        </div>
         <Footer />
       </body>
     </html>
