@@ -20,7 +20,7 @@ export default async function CategoryPage({ params }: { params: Promise<{ slug:
   let categoryProducts: Product[] = []
   let pagination: MetaPagination | undefined
   try {
-    const { products, meta } = await fetchProducts({ category: slug })
+    const { products, meta } = await fetchProducts({ category: slug, limit: 3 })
     categoryProducts = products
     pagination = meta.pagination
   } catch (error) {
@@ -30,5 +30,11 @@ export default async function CategoryPage({ params }: { params: Promise<{ slug:
       return <MainNotFound />
     }
   }
-  return <ProductGrid products={categoryProducts} pagination={pagination} />
+  return (
+    <ProductGrid
+      products={categoryProducts}
+      pagination={pagination}
+      basePath={`/categories/${slug}`}
+    />
+  )
 }

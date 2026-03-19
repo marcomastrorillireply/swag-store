@@ -12,9 +12,11 @@ import {
 export const ProductGrid = ({
   products,
   pagination,
+  basePath = '/products',
 }: {
   products: Product[]
   pagination: MetaPagination
+  basePath?: string
 }) => {
   const pageNumbers = []
   for (let i = 1; i <= pagination.totalPages; i++) {
@@ -34,17 +36,17 @@ export const ProductGrid = ({
         <Pagination>
           <PaginationContent>
             {pagination.hasPreviousPage && (
-              <PaginationPrevious href={`/products?page=${pagination.page - 1}`} />
+              <PaginationPrevious href={`${basePath}?page=${pagination.page - 1}`} />
             )}
             {pageNumbers.map((p) => (
               <PaginationItem key={p}>
-                <PaginationLink isActive={p === pagination.page} href={`/products?page=${p}`}>
+                <PaginationLink isActive={p === pagination.page} href={`${basePath}?page=${p}`}>
                   {p}
                 </PaginationLink>
               </PaginationItem>
             ))}
             {pagination.hasNextPage && (
-              <PaginationNext href={`/products?page=${pagination.page + 1}`} />
+              <PaginationNext href={`${basePath}?page=${pagination.page + 1}`} />
             )}
           </PaginationContent>
         </Pagination>
