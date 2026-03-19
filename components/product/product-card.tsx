@@ -14,7 +14,7 @@ export default function ProductCard({ product, priority }: Props) {
 
   return (
     <Link href={`/products/${product.slug}`} className="group block">
-      <Card className="overflow-hidden border border-gray-200">
+      <Card className="overflow-hidden border border-gray-200 max-w-[350px] mx-auto">
         <div className="relative aspect-square rounded-lg w-full">
           <Image
             src={product.images[0]}
