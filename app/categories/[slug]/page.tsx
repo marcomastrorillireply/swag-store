@@ -3,7 +3,8 @@ import { fetchCategories } from '@/lib/categories'
 import { fetchProducts } from '@/lib/products'
 import NotFound from './not-found'
 import MainNotFound from '@/app/not-found'
-import { ProductGrid, PRODUCTS_PER_PAGE } from '@/components/product/product-grid'
+import { ProductGrid } from '@/components/product/product-grid'
+import { PRODUCTS_PER_PAGE } from '@/lib/constants'
 
 // Disallow any slug not returned by generateStaticParams — unknown categories return 404
 export const dynamicParams = false

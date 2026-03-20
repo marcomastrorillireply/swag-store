@@ -1,5 +1,6 @@
 import { Metadata } from 'next'
-import { ProductGrid, PRODUCTS_PER_PAGE } from '@/components/product/product-grid'
+import { ProductGrid } from '@/components/product/product-grid'
+import { PRODUCTS_PER_PAGE } from '@/lib/constants'
 import { fetchProducts } from '@/lib/products'
 
 export const metadata: Metadata = {

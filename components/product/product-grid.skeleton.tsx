@@ -1,4 +1,4 @@
-import { PRODUCTS_PER_PAGE } from './product-grid'
+import { PRODUCTS_PER_PAGE } from '@/lib/constants'
 import { Skeleton } from '../ui/skeleton'
 import { Card, CardContent } from '../ui/card'
 
