@@ -13,7 +13,7 @@ export default function HeaderScrollWrapper({ children }: { children: React.Reac
 
   return (
     <div
-      className={`relative sticky top-0 z-50 transition-shadow duration-300 ${
+      className={`relative sticky top-0 z-50 isolate transition-shadow duration-300 ${
         scrolled ? 'shadow-[0_1px_12px_rgba(0,0,0,0.10)]' : ''
       }`}
     >
