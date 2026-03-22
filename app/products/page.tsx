@@ -1,7 +1,7 @@
 import { Metadata } from 'next'
-import { ProductGrid } from '@/components/product/product-grid'
-import { PRODUCTS_PER_PAGE } from '@/lib/constants'
-import { fetchProducts } from '@/lib/products'
+import { Suspense } from 'react'
+import { ProductGridWrapper } from '@/components/product/productGridWrapper'
+import { ProductGridSkeleton } from '@/components/product/product-grid.skeleton'
 
 export const metadata: Metadata = {
   title: 'Products',
@@ -13,13 +13,14 @@ export default async function ProductsPage({
 }: {
   searchParams: Promise<{ page?: string }>
 }) {
-  const params = await searchParams
-  const page = params?.page ? parseInt(params.page) : 1
-
-  const {
-    products,
-    meta: { pagination },
-  } = await fetchProducts({ page, limit: PRODUCTS_PER_PAGE })
-
-  return <ProductGrid products={products} pagination={pagination} title="All Products" />
+  return (
+    <>
+      <div className="flex items-center justify-between mx-10 mt-10 h-10">
+        <h1 className="text-2xl font-semibold whitespace-nowrap">All Products</h1>
+      </div>
+      <Suspense fallback={<ProductGridSkeleton />}>
+        <ProductGridWrapper searchParamsPromise={searchParams} />
+      </Suspense>
+    </>
+  )
 }

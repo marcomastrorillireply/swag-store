@@ -4,8 +4,7 @@ import { ProductCardSkeleton } from './product-card.skeleton'
 
 export const ProductGridSkeleton = () => (
   <>
-    <div className="flex items-center justify-between mx-10 mt-10 h-10">
-      <Skeleton className="h-7 w-32" />
+    <div className="absolute right-15 2xl:right-40">
       <div className="flex gap-2">
         <Skeleton className="h-9 w-20 rounded-md" />
         <Skeleton className="h-9 w-16 rounded-md" />

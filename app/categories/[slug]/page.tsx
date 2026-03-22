@@ -1,10 +1,10 @@
-import { ApiError } from '@/lib/fetchVercelApi'
 import { fetchCategories } from '@/lib/categories'
-import { fetchProducts } from '@/lib/products'
-import NotFound from './not-found'
-import MainNotFound from '@/app/not-found'
-import { ProductGrid } from '@/components/product/product-grid'
-import { PRODUCTS_PER_PAGE } from '@/lib/constants'
+import { ProductGridWrapper } from '@/components/product/productGridWrapper'
+import { Suspense } from 'react'
+import { ProductGridSkeleton } from '@/components/product/product-grid.skeleton'
+import { Category } from '@/types'
+import { CategoryTitle } from '@/components/product/category-title'
+import { notFound } from 'next/navigation'
 
 // Pre-generate one page per category at build time
 export async function generateStaticParams() {
@@ -13,34 +13,37 @@ export async function generateStaticParams() {
 }
 
 export default async function CategoryPage({
-  params,
-  searchParams,
+  params: paramsPromise,
+  searchParams: searchParamsPromise,
 }: {
   params: Promise<{ slug: string }>
   searchParams: Promise<{ page?: string }>
 }) {
-  const { slug } = await params
-  const { page: pageParam } = await searchParams
-  const page = pageParam ? parseInt(pageParam) : 1
+  const { slug } = await paramsPromise
+  let category: Category | undefined = undefined
+
   try {
+    // this fetch MUST be here blocking rendering - i cannot show anything before knowing if the category exists
     const categories = await fetchCategories()
-    const category = categories.find((c) => c.slug === slug)
-    const {
-      products,
-      meta: { pagination },
-    } = await fetchProducts({ category: slug, page, limit: PRODUCTS_PER_PAGE })
-    return (
-      <ProductGrid
-        products={products}
-        pagination={pagination}
-        basePath={`/categories/${slug}`}
-        title={category?.name}
-      />
-    )
+    category = categories.find((c) => c.slug === slug)
   } catch (error) {
-    if (error instanceof ApiError && error.status === 404) {
-      return <NotFound />
-    }
-    return <MainNotFound />
+    notFound()
   }
+
+  if (!category) {
+    notFound()
+  }
+
+  return (
+    <>
+      <CategoryTitle category={category} />
+      <Suspense fallback={<ProductGridSkeleton />}>
+        <ProductGridWrapper
+          searchParamsPromise={searchParamsPromise}
+          slug={slug}
+          basePath={`/categories/${slug}`}
+        />
+      </Suspense>
+    </>
+  )
 }
