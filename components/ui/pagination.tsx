@@ -39,42 +39,52 @@ type PaginationLinkProps = {
 function PaginationLink({ className, isActive, size = 'icon', ...props }: PaginationLinkProps) {
   return (
     <Button asChild variant={isActive ? 'outline' : 'ghost'} size={size} className={cn(className)}>
-      <Link aria-current={isActive ? 'page' : undefined} data-slot="pagination-link" data-active={isActive} {...props} />
+      <Link
+        aria-current={isActive ? 'page' : undefined}
+        prefetch
+        data-slot="pagination-link"
+        data-active={isActive}
+        {...props}
+      />
     </Button>
   )
 }
 
 function PaginationPrevious({
   className,
+  size = 'default',
   text = 'Previous',
   ...props
 }: React.ComponentProps<typeof PaginationLink> & { text?: string }) {
+  const isIcon = size === 'icon' || size === 'icon-sm'
   return (
     <PaginationLink
       aria-label="Go to previous page"
-      size="default"
-      className={cn('pl-1.5!', className)}
+      size={size}
+      className={cn(!isIcon && 'pl-1.5!', className)}
       {...props}
     >
       <ChevronLeftIcon data-icon="inline-start" />
-      <span className="hidden sm:block">{text}</span>
+      {!isIcon && <span className="hidden sm:block">{text}</span>}
     </PaginationLink>
   )
 }
 
 function PaginationNext({
   className,
+  size = 'default',
   text = 'Next',
   ...props
 }: React.ComponentProps<typeof PaginationLink> & { text?: string }) {
+  const isIcon = size === 'icon' || size === 'icon-sm'
   return (
     <PaginationLink
       aria-label="Go to next page"
-      size="default"
-      className={cn('pr-1.5!', className)}
+      size={size}
+      className={cn(!isIcon && 'pr-1.5!', className)}
       {...props}
     >
-      <span className="hidden sm:block">{text}</span>
+      {!isIcon && <span className="hidden sm:block">{text}</span>}
       <ChevronRightIcon data-icon="inline-end" />
     </PaginationLink>
   )

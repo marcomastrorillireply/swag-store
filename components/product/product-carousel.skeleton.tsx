@@ -12,7 +12,7 @@ export const ProductCarouselSkeleton = () => (
   <Carousel className="w-full">
     <CarouselContent>
       {Array.from({ length: 10 }).map((_, i) => (
-        <CarouselItem key={i} className="basis-full sm:basis-1/2 lg:basis-1/3">
+        <CarouselItem key={i} className="basis-3/5 sm:basis-1/2 lg:basis-1/3">
           <ProductCardSkeleton />
         </CarouselItem>
       ))}

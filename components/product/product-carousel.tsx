@@ -18,7 +18,7 @@ export default function ProductCarousel({ products }: Props) {
     <Carousel className="w-full">
       <CarouselContent>
         {products.map((product, index) => (
-          <CarouselItem className="basis-full sm:basis-1/2 lg:basis-1/3" key={product.id}>
+          <CarouselItem className="basis-3/5 sm:basis-1/2 lg:basis-1/3" key={product.id}>
             <ProductCard product={product} priority={index === 0} />
           </CarouselItem>
         ))}

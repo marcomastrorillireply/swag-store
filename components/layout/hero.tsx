@@ -33,11 +33,11 @@ export default function Hero() {
             <br />
             you ship with.
           </h1>
-          <p className="text-white/60 text-xs md:text-base max-w-sm">
+          <p className="invisible lg:visible text-white/60 text-xs md:text-base max-w-sm">
             Premium swag for developers who build with Vercel. From tees to tech gear, represent the
             tools you love.
           </p>
-          <Button asChild>
+          <Button asChild className="bg-amber-900 hover:bg-amber-800 text-white border-0">
             <Link href="/products" className="inline-flex items-center gap-2">
               Browse All Products
               <ArrowRightIcon className="size-4" />
