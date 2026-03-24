@@ -4,20 +4,14 @@ import { Separator } from '@/components/ui/separator'
 import { Button } from '@/components/ui/button'
 import { fetchProductById, fetchProducts } from '@/lib/products'
 import { Product } from '@/types'
-import { ApiError } from '@/lib/fetchVercelApi'
-import NotFound from './not-found'
+import { notFound } from 'next/navigation'
+import { Suspense } from 'react'
+import StockIndicatorSkeleton from '@/components/product/stock-indicator-skeleton'
+import StockIndicator from '@/components/product/stock-indicator'
 
 export default async function ProductPage({ params }: { params: Promise<{ slug: string }> }) {
   const { slug } = await params
-  let product: Product
-  try {
-    product = await fetchProductById(slug)
-  } catch (error) {
-    if (error instanceof ApiError && error.status === 404) {
-      return <NotFound />
-    }
-    throw error
-  }
+  const product = await fetchProductById(slug).catch(() => notFound())
 
   const price = (product.price / 100).toFixed(2)
 
@@ -48,6 +42,12 @@ export default async function ProductPage({ params }: { params: Promise<{ slug: 
           <p className="text-2xl font-semibold">
             {product.currency} {price}
           </p>
+
+          <Separator />
+
+          <Suspense fallback={<StockIndicatorSkeleton />}>
+            <StockIndicator id={product.id} />
+          </Suspense>
 
           <Separator />
 
