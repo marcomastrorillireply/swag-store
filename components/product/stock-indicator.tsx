@@ -1,7 +1,12 @@
-import { fetchProductStock } from '@/lib/products'
-
-export default async function StockIndicator({ id }: { id: string }) {
-  const { inStock, lowStock, stock } = await fetchProductStock(id)
+export default async function StockIndicator({
+  inStock,
+  lowStock,
+  stock,
+}: {
+  inStock: boolean
+  lowStock: boolean
+  stock: number
+}) {
   const stockElement = !inStock ? (
     <p className="text-red-500">Out of stock</p>
   ) : lowStock ? (

@@ -1,13 +1,13 @@
 import Image from 'next/image'
 import { Badge } from '@/components/ui/badge'
 import { Separator } from '@/components/ui/separator'
-import { Button } from '@/components/ui/button'
 import { fetchProductById, fetchProducts } from '@/lib/products'
 import { Product } from '@/types'
 import { notFound } from 'next/navigation'
 import { Suspense } from 'react'
 import StockIndicatorSkeleton from '@/components/product/stock-indicator-skeleton'
-import StockIndicator from '@/components/product/stock-indicator'
+import { AddToCartSection } from '@/components/product/add-to-cart-section'
+import { AddToCartButtonSkeleton } from '@/components/product/add-to-cart-button-skeleton'
 
 export default async function ProductPage({ params }: { params: Promise<{ slug: string }> }) {
   const { slug } = await params
@@ -45,17 +45,22 @@ export default async function ProductPage({ params }: { params: Promise<{ slug: 
 
           <Separator />
 
-          <Suspense fallback={<StockIndicatorSkeleton />}>
-            <StockIndicator id={product.id} />
-          </Suspense>
+          <p className="text-muted-foreground leading-relaxed">{product.description}</p>
 
           <Separator />
 
-          <p className="text-muted-foreground leading-relaxed">{product.description}</p>
-
-          <Button size="lg" className="w-full md:w-auto">
-            Add to Cart
-          </Button>
+          <Suspense
+            fallback={
+              <>
+                <div className="gap-5 flex flex-col">
+                  <StockIndicatorSkeleton />
+                  <AddToCartButtonSkeleton />
+                </div>
+              </>
+            }
+          >
+            <AddToCartSection product={product} />
+          </Suspense>
         </div>
       </div>
     </main>

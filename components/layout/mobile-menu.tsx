@@ -8,21 +8,23 @@ import { Sheet, SheetContent, SheetTrigger } from '../ui/sheet'
 import { Category } from '@/types'
 import { DialogTitle } from '../ui/dialog'
 import { VisuallyHidden } from 'radix-ui'
+import { Button } from '../ui/button'
 
 export default function MobileMenu({ categories }: { categories: Category[] }) {
   const [open, setOpen] = useState(false)
   const pathname = usePathname()
 
   useEffect(() => {
-    setOpen(false)
+    const closeMenu = () => setOpen(false)
+    closeMenu()
   }, [pathname])
 
   return (
     <Sheet open={open} onOpenChange={setOpen}>
       <SheetTrigger asChild>
-        <button className="md:hidden text-white" aria-label="Open menu">
-          <MenuIcon size={22} color="black" />
-        </button>
+        <Button variant="ghost" size="icon" aria-label="Open menu">
+          <MenuIcon size={22} />
+        </Button>
       </SheetTrigger>
       <SheetContent side="right" className="backdrop-blur-md bg-white/70">
         <VisuallyHidden.Root>
@@ -33,11 +35,7 @@ export default function MobileMenu({ categories }: { categories: Category[] }) {
             All Products
           </Link>
           {categories.map((cat) => (
-            <Link
-              key={cat.slug}
-              href={`/categories/${cat.slug}`}
-              className="px-4 py-3 text-sm "
-            >
+            <Link key={cat.slug} href={`/categories/${cat.slug}`} className="px-4 py-3 text-sm ">
               {cat.name}
             </Link>
           ))}

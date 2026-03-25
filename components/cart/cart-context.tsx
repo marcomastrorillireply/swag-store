@@ -2,6 +2,7 @@
 
 import { Cart } from '@/lib/cart'
 import { createContext, useContext, useEffect, useState } from 'react'
+import MiniCartDrawer from './mini-cart-drawer'
 
 export const CartContext = createContext<{
   cart: Cart | null
@@ -72,6 +73,7 @@ export function CartProvider({ children }: { children: React.ReactNode }) {
   return (
     <CartContext.Provider value={{ cart, isOpen, token, openCart, closeCart, addItem }}>
       {children}
+      <MiniCartDrawer />
     </CartContext.Provider>
   )
 }
