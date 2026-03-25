@@ -19,6 +19,10 @@ export async function generateMetadata(): Promise<Metadata> {
   return {
     title: store.seo.defaultTitle,
     description: store.seo.defaultDescription,
+    openGraph: {
+      title: store.seo.defaultTitle,
+      description: store.seo.defaultDescription,
+    },
   }
 }
 
@@ -29,9 +33,7 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en">
-      <body
-        className={`${dmSans.variable} antialiased flex flex-col min-h-screen`}
-      >
+      <body className={`${dmSans.variable} antialiased flex flex-col min-h-screen`}>
         <CartProvider>
           <div className="fixed top-0 inset-x-0 z-50">
             <HeaderScrollBackground />

@@ -6,6 +6,10 @@ import { ProductGridSkeleton } from '@/components/product/product-grid.skeleton'
 export const metadata: Metadata = {
   title: 'Products',
   description: 'Browse our full collection of Vercel swag.',
+  openGraph: {
+    title: 'Products',
+    description: 'Browse our full collection of Vercel swag.',
+  },
 }
 
 export default async function ProductsPage({

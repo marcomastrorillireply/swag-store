@@ -8,6 +8,26 @@ import { Suspense } from 'react'
 import StockIndicatorSkeleton from '@/components/product/stock-indicator-skeleton'
 import { AddToCartSection } from '@/components/product/add-to-cart-section'
 import { AddToCartButtonSkeleton } from '@/components/product/add-to-cart-button-skeleton'
+import { Metadata } from 'next'
+
+export async function generateMetadata({
+  params,
+}: {
+  params: Promise<{ slug: string }>
+}): Promise<Metadata> {
+  const { slug } = await params
+  const product = await fetchProductById(slug)
+  if (!product) notFound()
+  return {
+    title: product.name,
+    description: product.description,
+    openGraph: {
+      title: product.name,
+      description: product.description,
+      images: [{ url: product.images[0] }],
+    },
+  }
+}
 
 export default async function ProductPage({ params }: { params: Promise<{ slug: string }> }) {
   const { slug } = await params

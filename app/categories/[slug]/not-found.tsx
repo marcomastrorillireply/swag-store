@@ -1,5 +1,11 @@
+import { Metadata } from 'next'
 import Link from 'next/link'
 import { Button } from '@/components/ui/button'
+
+export const metadata: Metadata = {
+  title: 'Category not found',
+  description: 'The requested category could not be found.',
+}
 
 export default function NotFound() {
   return (

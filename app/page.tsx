@@ -1,4 +1,15 @@
+import { Metadata } from 'next'
 import Hero from '@/components/layout/hero'
+
+export const metadata: Metadata = {
+  title: 'Home',
+  description: 'Shop the latest Vercel swag.',
+  openGraph: {
+    title: 'Home',
+    description: 'Shop the latest Vercel swag.',
+  },
+}
+
 import HomepageCarousel from '@/components/product/homepage-carousel'
 import { ProductCarouselSkeleton } from '@/components/product/product-carousel.skeleton'
 import { Suspense } from 'react'

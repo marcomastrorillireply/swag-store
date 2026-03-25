@@ -1,4 +1,24 @@
+import { Metadata } from 'next'
 import { fetchCategories } from '@/lib/categories'
+
+export async function generateMetadata({
+  params,
+}: {
+  params: Promise<{ slug: string }>
+}): Promise<Metadata> {
+  const { slug } = await params
+  const categories = await fetchCategories()
+  const category = categories.find((c) => c.slug === slug)
+  if (!category) notFound()
+  return {
+    title: category?.name || 'Category',
+    description: `Browse all ${category?.name ?? ''} products.`,
+    openGraph: {
+      title: category?.name ?? 'Category',
+      description: `Browse all ${category?.name ?? ''} products.`,
+    },
+  }
+}
 import { ProductGridWrapper } from '@/components/product/productGridWrapper'
 import { Suspense } from 'react'
 import { ProductGridSkeleton } from '@/components/product/product-grid.skeleton'
