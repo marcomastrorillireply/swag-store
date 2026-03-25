@@ -3,6 +3,7 @@
 import { useState } from 'react'
 import { useCart } from '@/components/cart/cart-context'
 import { Button } from '@/components/ui/button'
+import { useRouter } from 'next/navigation'
 
 export default function AddToCartButton({
   productId,
@@ -11,12 +12,16 @@ export default function AddToCartButton({
   productId: string
   inStock: boolean
 }) {
+  const router = useRouter()
   const { addItem } = useCart()
   const [isLoading, setIsLoading] = useState(false)
 
   async function handleClick() {
     setIsLoading(true)
-    await addItem(productId)
+    const success = await addItem(productId)
+    if (success) {
+      router.refresh()
+    }
     setIsLoading(false)
   }
 

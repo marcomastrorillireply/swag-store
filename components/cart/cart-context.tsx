@@ -3,6 +3,7 @@
 import { Cart } from '@/lib/cart'
 import { createContext, useContext, useEffect, useState } from 'react'
 import MiniCartDrawer from './mini-cart-drawer'
+import { toast } from 'sonner'
 
 export const CartContext = createContext<{
   cart: Cart | null
@@ -10,14 +11,14 @@ export const CartContext = createContext<{
   token: string | null
   openCart: () => void
   closeCart: () => void
-  addItem: (productId: string) => Promise<void>
+  addItem: (productId: string) => Promise<boolean>
 }>({
   cart: null,
   isOpen: false,
   token: null,
   openCart: () => {},
   closeCart: () => {},
-  addItem: async () => {},
+  addItem: async () => false,
 })
 
 export function CartProvider({ children }: { children: React.ReactNode }) {
@@ -46,28 +47,39 @@ export function CartProvider({ children }: { children: React.ReactNode }) {
     setIsOpen(false)
   }
 
-  async function addItem(productId: string) {
+  async function addItem(productId: string): Promise<boolean> {
     let currentToken = token
+    try {
+      if (!currentToken) {
+        const res = await fetch('/api/cart/create', { method: 'POST' })
+        const data = await res.json()
+        currentToken = data.token
+        localStorage.setItem('cartToken', currentToken || '')
+        setToken(currentToken)
+      }
 
-    if (!currentToken) {
-      const res = await fetch('/api/cart/create', { method: 'POST' })
-      const data = await res.json()
-      currentToken = data.token
-      localStorage.setItem('cartToken', currentToken || '')
-      setToken(currentToken)
+      const addToCartResponse = await fetch('/api/cart', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+          'x-cart-token': currentToken || '',
+        },
+        body: JSON.stringify({ productId, quantity: 1 }),
+      })
+      const updatedCartResponse = await addToCartResponse.json()
+
+      if (!addToCartResponse.ok) {
+        toast.error(updatedCartResponse.message || 'Failed to add item to cart')
+        return false
+      }
+      setCart(updatedCartResponse)
+      openCart()
+      return true
+    } catch (error) {
+      toast.error('An error occurred while adding item to cart')
+      console.error('Add to cart error:', error)
+      return false
     }
-
-    const addToCartResponse = await fetch('/api/cart', {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/json',
-        'x-cart-token': currentToken || '',
-      },
-      body: JSON.stringify({ productId, quantity: 1 }),
-    })
-    const updatedCart = await addToCartResponse.json()
-    setCart(updatedCart)
-    openCart()
   }
 
   return (

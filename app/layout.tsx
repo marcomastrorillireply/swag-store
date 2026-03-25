@@ -7,6 +7,7 @@ import Footer from '@/components/layout/footer'
 import { fetchStore } from '@/lib/store'
 import { SpeedInsights } from '@vercel/speed-insights/next'
 import { CartProvider } from '@/components/cart/cart-context'
+import { Toaster } from '@/components/ui/sonner'
 
 const geistSans = Geist({
   variable: '--font-geist-sans',
@@ -46,10 +47,12 @@ export default function RootLayout({
           <div className="h-14" />
           <div className="flex-grow">
             {children}
+
             <SpeedInsights />
           </div>
         </CartProvider>
         <Footer />
+        <Toaster />
       </body>
     </html>
   )
