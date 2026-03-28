@@ -34,9 +34,15 @@ export function CartProvider({ children }: { children: React.ReactNode }) {
     const storedToken = localStorage.getItem('cartToken')
     if (!storedToken) return
 
-    async function hydrate() {
-      setToken(storedToken)
+    async function hydrate() {   
       const res = await fetch('/api/cart', { headers: { 'x-cart-token': storedToken || '' } })
+      if (!res.ok) {
+        localStorage.removeItem('cartToken')
+        setToken(null)
+        toast.error('Your cart has been reset. Please add items to your cart again.')
+        return
+      }
+      setToken(storedToken)
       const data = await res.json()
       setCart(data)
     }
