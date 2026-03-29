@@ -34,6 +34,9 @@ export default function MobileMenu({ categories }: { categories: Category[] }) {
           <Link href="/products" className="px-4 py-3 text-sm ">
             All Products
           </Link>
+          <Link href="/search" className="px-4 py-3 text-sm ">
+            Search
+          </Link>
           {categories.map((cat) => (
             <Link key={cat.slug} href={`/categories/${cat.slug}`} className="px-4 py-3 text-sm ">
               {cat.name}

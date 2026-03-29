@@ -44,6 +44,13 @@ export default function DesktopMenu({ categories }: { categories: Category[] }) 
             </div>
           </NavigationMenuContent>
         </NavigationMenuItem>
+        <NavigationMenuItem>
+          <NavigationMenuLink asChild>
+            <Link href="/search" className="text-sm text-gray-700 px-3 py-2 hover:bg-gray-100 rounded-md">
+              Search
+            </Link>
+          </NavigationMenuLink>
+        </NavigationMenuItem>
       </NavigationMenuList>
     </NavigationMenu>
   )

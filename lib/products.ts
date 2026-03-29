@@ -14,6 +14,7 @@ export const fetchProducts: (
   if (params?.category) query.append('category', params.category)
   if (params?.limit !== undefined) query.append('limit', String(params.limit))
   if (params?.page !== undefined) query.append('page', String(params.page))
+  if (params?.search !== undefined) query.append('search', params.search)
 
   const qs = query.toString()
   const response = await fetchVercelApi(qs ? `/products?${qs}` : '/products')

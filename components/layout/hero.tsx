@@ -37,9 +37,9 @@ export default function Hero() {
             Premium swag for developers who build with Vercel. From tees to tech gear, represent the
             tools you love.
           </p>
-          <Button asChild className="bg-amber-900 hover:bg-amber-800 text-white border-0">
-            <Link href="/products" className="inline-flex items-center gap-2">
-              Browse All Products
+          <Button asChild className="bg-brand hover:bg-brand/80 text-white border-0">
+            <Link href="/search" className="inline-flex items-center gap-2">
+              Search Products
               <ArrowRightIcon className="size-4" />
             </Link>
           </Button>

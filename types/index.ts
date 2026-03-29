@@ -3,6 +3,7 @@ export type ProductsParams = {
   category?: string
   limit?: number
   page?: number
+  search?: string
 }
 
 export type Store = {
