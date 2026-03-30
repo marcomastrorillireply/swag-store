@@ -16,7 +16,8 @@ export async function generateMetadata({
   params: Promise<{ slug: string }>
 }): Promise<Metadata> {
   const { slug } = await params
-  const product = await fetchProductById(slug)
+  // Request memoization, single fetch for single render cycle
+  const product = await fetchProductById(slug).catch(() => notFound())
   if (!product) notFound()
   return {
     title: product.name,
@@ -32,6 +33,7 @@ export async function generateMetadata({
 export default async function ProductPage({ params }: { params: Promise<{ slug: string }> }) {
   const { slug } = await params
   const product = await fetchProductById(slug).catch(() => notFound())
+  if (!product) notFound()
 
   const price = (product.price / 100).toFixed(2)
 
