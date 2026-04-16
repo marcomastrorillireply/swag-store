@@ -41,7 +41,7 @@ export default function AddToCartButton({
         >
           <Minus className="size-4" />
         </Button>
-        <ButtonGroupText className="px-5 text-base">{quantity}</ButtonGroupText>
+        <ButtonGroupText className="w-12 text-base justify-center">{quantity}</ButtonGroupText>
         <Button
           variant="outline"
           size="lg"

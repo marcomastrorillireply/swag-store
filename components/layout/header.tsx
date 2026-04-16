@@ -4,6 +4,8 @@ import MobileMenu from './mobile-menu'
 import { fetchCategories } from '@/lib/categories'
 import DesktopMenu from './desktop-menu'
 import CartIconButton from '../cart/cart-icon-button'
+import PromotionStrip from './promotion-strip'
+import { Suspense } from 'react'
 
 export default async function Header() {
   const categories = await fetchCategories()
@@ -25,6 +27,9 @@ export default async function Header() {
           </div>
         </div>
       </div>
+      <Suspense fallback={null}>
+        <PromotionStrip />
+      </Suspense>
     </header>
   )
 }
