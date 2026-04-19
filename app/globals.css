@@ -48,7 +48,7 @@
 }
 
 :root {
-  --brand: oklch(0.37 0.08 50);  /* amber-900, colore CTA principale */
+  --brand: oklch(32.707% 0.10973 25.679);  /* Main CTA */
   --background: oklch(0.97 0 0);
   --foreground: oklch(0.145 0 0);
   --card: oklch(1 0 0);
