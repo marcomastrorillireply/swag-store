@@ -19,7 +19,7 @@ export async function generateMetadata({
     },
   }
 }
-import { ProductGridWrapper } from '@/components/product/productGridWrapper'
+import { ProductGridWrapper } from '@/components/product/product-grid-wrapper'
 import { Suspense } from 'react'
 import { ProductGridSkeleton } from '@/components/product/product-grid.skeleton'
 import { Category } from '@/types'

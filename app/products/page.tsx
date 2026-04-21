@@ -1,6 +1,6 @@
 import { Metadata } from 'next'
 import { Suspense } from 'react'
-import { ProductGridWrapper } from '@/components/product/productGridWrapper'
+import { ProductGridWrapper } from '@/components/product/product-grid-wrapper'
 import { ProductGridSkeleton } from '@/components/product/product-grid.skeleton'
 
 export const metadata: Metadata = {
