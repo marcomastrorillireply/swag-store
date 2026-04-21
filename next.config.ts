@@ -10,7 +10,7 @@ const nextConfig: NextConfig = {
     ],
     qualities: [75, 90],
   },
-  experimental: { cacheComponents: true },
+  cacheComponents: true,
 }
 
 export default nextConfig
