@@ -1,5 +1,5 @@
 import { Product, ProductsParams, ProductStock, ProductMeta } from '@/types'
-import { fetchVercelApi } from './fetchVercelApi'
+import { fetchVercelApi, ApiError } from './fetchVercelApi'
 import { cacheLife, cacheTag } from 'next/cache'
 
 export const fetchProducts: (
@@ -22,18 +22,27 @@ export const fetchProducts: (
   return { products: data, meta }
 }
 
-export const fetchProductById: (id: string) => Promise<Product> = async (id) => {
+export const fetchProductById: (id: string) => Promise<Product | null> = async (id) => {
   'use cache'
   cacheLife('minutes')
   cacheTag(`product-${id}`)
 
-  const response = await fetchVercelApi(`/products/${id}`)
-  const { data } = await response.json()
-  return data
+  try {
+    const response = await fetchVercelApi(`/products/${id}`)
+    const { data } = await response.json()
+    return data
+  } catch (error) {
+    if (error instanceof ApiError && error.status === 404) return null
+    throw error
+  }
 }
 
 export const fetchProductStock: (id: string) => Promise<ProductStock> = async (id) => {
-  const response = await fetchVercelApi(`/products/${id}/stock`)
-  const { data } = await response.json()
-  return data
+  try {
+    const response = await fetchVercelApi(`/products/${id}/stock`)
+    const { data } = await response.json()
+    return data
+  } catch {
+    return { inStock: false, lowStock: false, stock: 0 }
+  }
 }

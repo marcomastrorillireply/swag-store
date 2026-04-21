@@ -9,13 +9,13 @@ export async function generateMetadata({
   const { slug } = await params
   const categories = await fetchCategories()
   const category = categories.find((c) => c.slug === slug)
-  if (!category) notFound()
+  if (!category) return { title: 'Category not found' }
   return {
-    title: category?.name || 'Category',
-    description: `Browse all ${category?.name ?? ''} products.`,
+    title: category.name,
+    description: `Browse all ${category.name} products.`,
     openGraph: {
-      title: category?.name ?? 'Category',
-      description: `Browse all ${category?.name ?? ''} products.`,
+      title: category.name,
+      description: `Browse all ${category.name} products.`,
     },
   }
 }
