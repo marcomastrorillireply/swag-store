@@ -8,13 +8,23 @@ type Props = {
   slug?: string
 }
 
+function getPage(pageParam?: string) {
+  if (!pageParam) return 1
+  const page = Number(pageParam)
+  if (!Number.isInteger(page) || page < 1) {
+    return 1
+  }
+
+  return page
+}
+
 export const ProductGridWrapper = async ({
   basePath = '/products',
   searchParamsPromise: searchParams,
   slug,
 }: Props) => {
   const { page: pageParam } = await searchParams
-  const page = pageParam ? parseInt(pageParam) : 1
+  const page = getPage(pageParam)
 
   const { products, meta } = await fetchProducts({
     page,
