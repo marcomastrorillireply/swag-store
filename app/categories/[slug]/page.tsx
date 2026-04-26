@@ -46,7 +46,7 @@ export default async function CategoryPage({
     // this fetch MUST be here blocking rendering - i cannot show anything before knowing if the category exists
     const categories = await fetchCategories()
     category = categories.find((c) => c.slug === slug)
-  } catch (error) {
+  } catch {
     notFound()
   }
 

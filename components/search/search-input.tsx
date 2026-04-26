@@ -1,9 +1,10 @@
 'use client'
 
-import { useState, useRef, useTransition, useEffect } from 'react'
+import { useState, useRef, useTransition } from 'react'
 import { useRouter, useSearchParams } from 'next/navigation'
 import { Input } from '@/components/ui/input'
 import { Button } from '@/components/ui/button'
+import { Spinner } from '@/components/ui/spinner'
 import { Search } from 'lucide-react'
 
 export function SearchInput() {
@@ -12,10 +13,6 @@ export function SearchInput() {
   const [isPending, startTransition] = useTransition()
   const [value, setValue] = useState(searchParams.get('query') ?? '')
   const debounceRef = useRef<ReturnType<typeof setTimeout> | null>(null)
-
-  useEffect(() => {
-    setValue(searchParams.get('query') ?? '')
-  }, [searchParams])
 
   function pushQuery(query: string) {
     const params = new URLSearchParams(searchParams.toString())
@@ -56,14 +53,14 @@ export function SearchInput() {
       />
       <Button
         variant="outline"
-        size="icon"
+        size="icon-lg"
         disabled={isPending}
         onClick={() => {
           if (debounceRef.current) clearTimeout(debounceRef.current)
           pushQuery(value)
         }}
       >
-        <Search className="size-4" />
+        {isPending ? <Spinner className="size-4" /> : <Search className="size-4" />}
       </Button>
     </div>
   )
