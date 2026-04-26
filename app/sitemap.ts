@@ -6,7 +6,10 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
   const baseUrl = process.env.NEXT_PUBLIC_SITE_URL || ''
   const now = new Date()
 
-  const [{ products }, categories] = await Promise.all([fetchProducts(), fetchCategories()])
+  const [{ products }, categories] = await Promise.all([
+    fetchProducts({ limit: 50 }),
+    fetchCategories(),
+  ])
 
   const productUrls = products.map(({ slug }) => ({
     url: `${baseUrl}/products/${slug}`,

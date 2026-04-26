@@ -91,7 +91,7 @@ export default async function ProductPage({ params }: { params: Promise<{ slug: 
 export async function generateStaticParams() {
   // fetch products at build time and return array of { slug: string }
   // dynamic params is true by default for products created after build
-  const { products } = await fetchProducts()
+  const { products } = await fetchProducts({ limit: 50 })
   return products.map((product: Product) => ({
     slug: product.slug,
   }))
